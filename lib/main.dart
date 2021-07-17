@@ -34,7 +34,10 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GoogleMap(initialCameraPosition: _intitialCameraPosition),
+      body: GoogleMap(
+          myLocationButtonEnabled: false,
+          zoomControlsEnabled: false,
+          initialCameraPosition: _intitialCameraPosition),
     );
   }
 }
