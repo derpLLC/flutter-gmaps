@@ -31,13 +31,23 @@ class _MapScreenState extends State<MapScreen> {
     zoom: 11.5,
   );
 
+  late GoogleMapController _googleMapController;
+
+  @override
+  void dispose() {
+    _googleMapController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       body: GoogleMap(
-          myLocationButtonEnabled: false,
-          zoomControlsEnabled: false,
-          initialCameraPosition: _intitialCameraPosition),
+        myLocationButtonEnabled: false,
+        zoomControlsEnabled: false,
+        initialCameraPosition: _intitialCameraPosition,
+        onMapCreated: (controller) => _googleMapController = controller,
+      ),
     );
   }
 }
