@@ -12,7 +12,7 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Google Maps',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primaryColor: Colors.white,
       ),
       home: MapScreen(),
     );
