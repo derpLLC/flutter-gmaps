@@ -45,6 +45,9 @@ class _MapScreenState extends State<MapScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text('Flutter Google Maps'),
+      ),
       body: GoogleMap(
         myLocationButtonEnabled: false,
         zoomControlsEnabled: false,
