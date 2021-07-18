@@ -33,6 +33,8 @@ class _MapScreenState extends State<MapScreen> {
   );
 
   late GoogleMapController _googleMapController;
+  Marker? _origin;
+  Marker? _destination;
 
   @override
   void dispose() {
@@ -48,6 +50,11 @@ class _MapScreenState extends State<MapScreen> {
         zoomControlsEnabled: false,
         initialCameraPosition: _intitialCameraPosition,
         onMapCreated: (controller) => _googleMapController = controller,
+        markers: {
+          if (_origin != null) _origin as Marker,
+          if (_destination != null) _destination as Marker,
+        },
+        onLongPress: _addMarker,
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).primaryColor,
@@ -58,5 +65,27 @@ class _MapScreenState extends State<MapScreen> {
         child: const Icon(Icons.center_focus_strong),
       ),
     );
+  }
+
+  void _addMarker(LatLng pos) async {
+    setState(() {
+      if (_origin == null || _origin != null && _destination != null) {
+        _origin = Marker(
+          position: pos,
+          markerId: MarkerId('origin'),
+          infoWindow: InfoWindow(title: "Origin"),
+          icon:
+              BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
+        );
+        _destination = null;
+      } else {
+        _destination = Marker(
+          position: pos,
+          markerId: MarkerId('destination'),
+          infoWindow: InfoWindow(title: "Destination"),
+          icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
+        );
+      }
+    });
   }
 }
