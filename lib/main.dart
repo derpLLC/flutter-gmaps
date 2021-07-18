@@ -47,6 +47,37 @@ class _MapScreenState extends State<MapScreen> {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Flutter Google Maps'),
+        actions: [
+          TextButton(
+            onPressed: () => _googleMapController.animateCamera(
+              CameraUpdate.newCameraPosition(
+                CameraPosition(
+                  target: _origin!.position,
+                  zoom: 14.5,
+                  tilt: 50.0,
+                ),
+              ),
+            ),
+            style: TextButton.styleFrom(
+              primary: Colors.green,
+              textStyle: const TextStyle(fontWeight: FontWeight.w600),
+            ),
+            child: const Text('Origin'),
+          ),
+          TextButton(
+            onPressed: () => _googleMapController.animateCamera(
+              CameraUpdate.newCameraPosition(
+                CameraPosition(
+                    target: _destination!.position, zoom: 14.5, tilt: 50.0),
+              ),
+            ),
+            style: TextButton.styleFrom(
+              primary: Colors.blue,
+              textStyle: const TextStyle(fontWeight: FontWeight.w600),
+            ),
+            child: const Text('Destination'),
+          ),
+        ],
       ),
       body: GoogleMap(
         myLocationButtonEnabled: false,
