@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:google_maps/direction_repository.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+import 'direction_model.dart';
 
 void main() {
   runApp(MyApp());
@@ -35,6 +38,7 @@ class _MapScreenState extends State<MapScreen> {
   late GoogleMapController _googleMapController;
   Marker? _origin;
   Marker? _destination;
+  Directions? _info;
 
   @override
   void dispose() {
@@ -95,9 +99,9 @@ class _MapScreenState extends State<MapScreen> {
       floatingActionButton: FloatingActionButton(
         backgroundColor: Theme.of(context).primaryColor,
         foregroundColor: Colors.black,
-        onPressed: () => _googleMapController.animateCamera(
-          CameraUpdate.newCameraPosition(_intitialCameraPosition),
-        ),
+        onPressed: () => _googleMapController.animateCamera(_info != null
+            ? CameraUpdate.newLatLngBounds(_info!.bounds, 100.0)
+            : CameraUpdate.newCameraPosition(_intitialCameraPosition)),
         child: const Icon(Icons.center_focus_strong),
       ),
     );
@@ -114,6 +118,7 @@ class _MapScreenState extends State<MapScreen> {
               BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueGreen),
         );
         _destination = null;
+        _info = null;
       } else {
         _destination = Marker(
           position: pos,
@@ -122,6 +127,11 @@ class _MapScreenState extends State<MapScreen> {
           icon: BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueBlue),
         );
       }
+    });
+    final directions = await DirectionsRepository()
+        .getDirections(origin: pos, destination: pos);
+    setState(() {
+      _info = directions;
     });
   }
 }
