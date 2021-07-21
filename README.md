@@ -31,7 +31,7 @@ Then run the following commands
 Clone the project
 
 ```bash
-  git clone https://github.com/Ayushd70/flutter-maps
+  git clone https://github.com/derpLLC/flutter-maps
 ```
 
 Go to the project directory
@@ -48,7 +48,7 @@ Run the app
 
 ## Issues
 
-Please file issues, bugs, or feature requests in our [issue tracker](https://github.com/Ayushd70/flutter-maps/issues/new/choose).
+Please file issues, bugs, or feature requests in our [issue tracker](https://github.com/derpLLC/flutter-maps/issues/new/choose).
 
 ## License
 
